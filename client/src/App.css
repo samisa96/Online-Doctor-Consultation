@@ -1,7 +1,18 @@
 .remove-btn{
     margin-right: 0.5rem;
 }
-.left-icon {
+/* .left-icon {
+} */
+/* .body {
+  padding-top: 45px;
+} */
+.brand{
+  margin-left:8.3333% !important;
+
+}
+.appnav{
+  position: sticky;
+  top: 0;
 }
 .link {
     color: rgb(9, 226, 38)

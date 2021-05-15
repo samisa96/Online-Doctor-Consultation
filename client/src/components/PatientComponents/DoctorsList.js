@@ -29,20 +29,12 @@ const DoctorsList = ({ doctors, getDoctors, setFilter,filterStore,location,histo
     
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterStore]);
-  const [filterOption, setFilterOpen] = useState(false);
 
-  const handleClick = () => setFilterOpen(!filterOption);
   return (
     <div className="DoctorList">
       <Navbar backBtn={history.goBack} title="Doctors" bg="#e0fdf7" />     
-
-      <div className="filter">
-        <button type="submit" onClick={handleClick}>
-          <img src={filterImg} alt="filter button" />
-        </button>
-      </div>
       <div className="container">
-        {filterOption && <FilterPop />}              
+        {<FilterPop />}              
 
         <h4 className="result-title">
           {doctors.length === 0

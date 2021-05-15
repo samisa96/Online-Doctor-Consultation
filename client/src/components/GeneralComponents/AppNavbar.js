@@ -250,8 +250,8 @@ componentDidMount(){
         )
 
         return (
-        <div>
-            <Navbar color="dark" dark expand="sm" className="mb-5">
+        <div className="appnav">
+            <Navbar color="dark" dark expand="sm" className="mb-5" >
                 <Container>
                 {this.props.backBtn && (
             <img className="left-icon" src={leftArrow} alt="Left icon" width="30" height="30" onClick={this.props.backBtn} />
@@ -260,12 +260,12 @@ componentDidMount(){
       className="Navbar d-flex justify-content-between"
     >
     
-      <div className="d-flex">
+      {/* <div className="d-flex">
        
         <h2 color='red' className="title mb-0">{this.props.title}</h2>
-      </div>
+      </div> */}
     </div>
-                    <NavbarBrand href="/">Exo Clinic</NavbarBrand>
+                    <NavbarBrand href="/" className='brand'>Exo Clinic</NavbarBrand>
                     <NavbarToggler onClick={this.toggle}/>
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
