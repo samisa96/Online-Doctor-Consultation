@@ -85,8 +85,10 @@ const join = () => {
             className="d-flex justify-content-center">VIEW PROFILE</Link>
 
            <AppointmentModal appointment={appointment}/>
-           {(status==="approved"&&Date()===Date(date))?<Button variant="contained" color="primary" onClick={join} 
-            style={{ margin: "20px" }}>Open Meeting</Button>:null}
+           {/* {(status==="approved"&&Date()===Date(date))? */}
+           <Button variant="contained" color="primary" onClick={join} 
+            style={{ margin: "20px" }}>Open Meeting</Button>
+            {/* :null} */}
           </div>
         </div>
         <div>

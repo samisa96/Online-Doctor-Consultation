@@ -121,7 +121,7 @@ const getDataDoctors=()=>{
 }
   return (
     <>
-    {console.log(notApprovedDoctors)}
+    {/* {console.log(notApprovedDoctors)} */}
       <WidgetsDropdown />
       <CCardGroup columns className = "cols-2" >
       <CCard>

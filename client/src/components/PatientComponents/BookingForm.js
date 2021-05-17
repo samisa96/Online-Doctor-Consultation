@@ -80,7 +80,7 @@ const BookingForm = (props) => {
 
   return (
     <div className="BookingForm">
-      <AppNavbar backBtn={props.history.goBack}title="Confirm Booking" bg="#e0fdf7" backBtn="/doctors" />
+      <AppNavbar backBtn={props.history.goBack}title="Confirm Booking" bg="#e0fdf7" />
       <div className="detail">
         <h5 className="title">{`Dr ${doctor.name}`}</h5>
         <p className="category">{doctor.category}</p>

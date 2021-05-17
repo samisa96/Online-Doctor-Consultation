@@ -11,7 +11,7 @@ const BookingConfirm = (props) =>{
   const {state} = location
   const {user} = props || state;
   const {appointment} =  state;
-
+  
 return (
   <div className="BookingConfirm">
     <AppNavbar backBtn={props.history.goBack} title="Booking Confirmed" bg="#e0fdf7" />

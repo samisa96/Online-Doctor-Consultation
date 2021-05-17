@@ -9,7 +9,7 @@ import { getAppointmentsByDate, getDoctorAppointments } from '../../../actions/a
 import { connect } from 'react-redux';
 import appointment from '../../../reducers/appointmentReducer';
 import spinner from '../../../images/icon/spinner_1.gif'
-
+import TextField from '@material-ui/core/TextField';
 
 export const Table = ({ rows, columns, imageModal, toggleModal, tableCallbacks, getAppointmentsByDate }) => {
     var currentLocation = window.location.href;
@@ -24,17 +24,20 @@ export const Table = ({ rows, columns, imageModal, toggleModal, tableCallbacks, 
     };
 
     var selectedDay = defaultValue;
-   
+    var textFieldDate = defaultValue;
     const pickDateHandler = (date) => {
       selectedDay = {
         year: date.getFullYear(),
         month: date.getMonth()+1,
         day: String(date.getDate())
       };  
+
+      // textFieldDate = selectedDay.year.toString() +'-' + selectedDay.month.toString()
+      // +'-' + selectedDay.day.toString();
+      console.log(textFieldDate);
       getAppointmentsByDate(selectedDay);
     };
-
-  
+    
     return (
       <Row>
         <Col sm={{ size: 10, offset: 1 }}>
@@ -46,10 +49,15 @@ export const Table = ({ rows, columns, imageModal, toggleModal, tableCallbacks, 
              
            <MuiPickersUtilsProvider utils={DateFnsUtils}>
              <KeyboardDatePicker
-               placeholder=""
-               value={selectedDay}
-               onChange={(date) => pickDateHandler(date)}
-               disablePast={true}
+
+                placeholder=""
+                value={textFieldDate}
+                onChange={(date) => pickDateHandler(date)}
+                disablePast={true}
+                InputProps={{ readOnly: true }}
+                invalidDateMessage={false}
+             //  TextFieldComponent={TextFieldComponent}
+           //   inputVariant="filled"
              />
            </MuiPickersUtilsProvider>
          </div>

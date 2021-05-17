@@ -240,11 +240,11 @@ export const login = ({email,password,userType}) => dispatch => {
             'Content-Type' : 'application/json'
         }
     }
-
     //Request body
     const body = JSON.stringify({email,password, userType});
     axios.post('/api/auth', body, config)
     .then(res => { 
+        console.log("res",res);
         dispatch({
         type: LOGIN_SUCCESS,
         payload: res.data

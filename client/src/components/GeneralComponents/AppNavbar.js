@@ -106,7 +106,7 @@ componentDidMount(){
         >
           {/* <strong>You have user.notifications.length messages</strong> */}
         </CDropdownItem>
-        {users&&user&&this.state.notifications? 
+        {users&&this.state.notifications && user? 
             this.state.notifications
             .map(notification=>{
                 // this.state&&this.setState({...this.state,isRead:false})

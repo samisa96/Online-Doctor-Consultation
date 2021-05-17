@@ -49,6 +49,14 @@ const  initialState = {
         rows: [],
         defaultSortColumn: 'date',
     },
+    videoReportsTable: {
+        columns: [
+            { accessor: 'date',   label: 'Date', priorityLevel: 2, position: 2, minWidth: 150, sortType: 'date', sortable: false },
+            { accessor: 'report',   label: 'View Report', priorityLevel: 3, position: 3, minWidth: 150, CustomComponent: InsertField },
+        ],
+        rows: [],
+        defaultSortColumn: 'date',
+    },
     patientsTable: {
         columns: [
             { accessor: 'patientFirstName',   label: 'First Name', priorityLevel: 1, position: 1, minWidth: 150, CustomComponent: InsertField },

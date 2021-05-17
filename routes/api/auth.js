@@ -42,8 +42,10 @@ router.post('/', (req,res) => {
             process.env.jwtSecret || config.get('jwtSecret'),
             {expiresIn: 3600}, //OPTIONAL!!!!!
             (err,token) => {
-               if(err) throw err;
-               res.json({
+               if(err) { console.log(err)
+                  throw err
+              };  
+            res.json({
                   token: token,
                   user: {
                      id: user.id,
@@ -90,7 +92,6 @@ router.post('/updateDocState', auth, (req,res) => {
 //@access           private
 
 router.post('/approveDoctor', auth, (req,res) => {
-   console.log(req.body)
    User.findOneAndUpdate({_id : req.body._id}, {isApproved:req.body.isApproved}, {
    new: true
 }).then(user => res.json(user))
@@ -176,44 +177,18 @@ router.post('/:id', auth, (req,res) => {
 ))
 })
 
-// // @route           POST api/auth/id
-// // @description:    add user Document
-// // @access          private
-// router.post('/addRecommendation/:id'  , async(req,res,next) => {
-//    // Compare token in URL params to hashed token
-//   try {
-//    var recommendations=null;
-//    var user = await User.findById(
-//    req.params.id
-//    );
-  
-//    if (!user) {
-//      res.status(400).json("Invalid Token")
-//    }
-//    console.log(user._id);
-//    recommendations=parseInt(user.recommendations,10)+1;
-//    console.log(recommendations);
-//    User.findOneAndUpdate({_id : req.params.id}, {recommendations:recommendations.toString()}, {
-//       new: true
-//    }).then(user =>
-//    res.status(201).json(user))
-//   } catch (err) {
-//    next(err);
-//   }
-//   });
+
 // @route           POST api/auth/id
 // @description:    add user Document
 // @access          private
 
 router.post(`/addDocument/:id`, auth, async (req,res) => {
-   console.log(req.user);
-   var documents=[];
-   console.log(req.params.id)
+  var documents=[];
   var user=await User.findById(req.params.id);
   documents=  user.documents  
   documents.push({fileName:req.body.fileName,
    document:req.body.document,docId:req.body.docId,date:req.body.date})
-           console.log(documents)
+           
    User.findOneAndUpdate({_id : req.params.id}, {documents:documents}, {
    new: true
 }).then(user => res.json({
@@ -237,15 +212,9 @@ router.post(`/addDocument/:id`, auth, async (req,res) => {
 // @description:    add   user notification
 //@access           public
 router.post('/addNotification/:id', auth,async(req,res) => {
-   var notifications=[];
-   console.log(req.params.id)
+  var notifications=[];
   var user=await User.findById(req.params.id);
-
-
-
-console.log("doctor:",doctor)
   notifications = user.notifications;
-  console.log(notifications)
            
   notifications=[{userId:req.body.notifyBy,
    notification:req.body.notification},...notifications]
@@ -260,7 +229,6 @@ console.log("doctor:",doctor)
 // @description:    read  user notification
 //@access           public
 router.get('/readNotification/:id', auth,(req,res) => {
-   console.log("testasdasdasdads",req.params.id);
            User.findOneAndUpdate({_id : req.params.id}, {notificationIsRead:true,notificationsNumber:"0"},
                { new: true }).then(user => res.json({
                   id: user.id,

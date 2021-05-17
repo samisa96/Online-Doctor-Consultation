@@ -65,7 +65,7 @@ class FilterPop extends Component {
       <form className="mb-5">
         <div className="form-row">
           <div className="form-group col-6 col-md-3">
-            <h5><strong>Filter by Category</strong></h5>
+            <h6><strong>Filter by Category</strong></h6>
             <select
               className="form-control form-control-lg"
               onChange={this.handleSelect}
@@ -81,7 +81,7 @@ class FilterPop extends Component {
             </select>
           </div>
           <div className="form-group col-6 col-md-3">
-          <h5><strong>Filter by Fee</strong></h5>
+          <h6><strong>Filter by Fee</strong></h6>
             <select
               className="form-control form-control-lg"
               onChange={this.handleSelect}
@@ -97,7 +97,7 @@ class FilterPop extends Component {
             </select>
           </div>
           <div className="form-group col-6 col-md-3">
-          <h5><strong>Filter by Experience</strong></h5>
+          <h6><strong>Filter by Experience</strong></h6>
             <select
               className="form-control form-control-lg"
               onChange={this.handleSelect}
@@ -114,7 +114,7 @@ class FilterPop extends Component {
             </select>
           </div>
           <div className="form-group col-6 col-md-3">
-          <h5><strong>Filter by Recommendations</strong></h5>
+          <h6><strong>Filter by Recommendations</strong></h6>
             <select
               className="form-control form-control-lg"
               onChange={this.handleSelect}

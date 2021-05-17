@@ -12,10 +12,9 @@ React.icons = icons
 
 ReactDOM.render(
   <BrowserRouter>
-{/* {!store.getState().auth.user&&  
-     <h1 className="mb-3 ml-4">Transition</h1> 
-  <App/>} */}
-  <App/>
+     <Suspense fallback={<div><img src={spinner} alt="spinner" /></div>}>
+       <App />
+     </Suspense>
   </BrowserRouter>,
   document.getElementById('root')
 );
