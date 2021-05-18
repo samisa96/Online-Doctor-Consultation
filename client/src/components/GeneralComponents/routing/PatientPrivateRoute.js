@@ -7,6 +7,7 @@ const PatientPrivateRoute = ({ component: Component, authenticated,user, ...rest
   console.log("patientroute")
   return (
     <div>
+      { authenticated===false&&<Redirect to="/" />}
       {authenticated && (
     <Route
       {...rest }

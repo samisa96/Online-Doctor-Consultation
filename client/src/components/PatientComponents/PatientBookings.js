@@ -12,7 +12,9 @@ const PatientBookings = ({history,appointments, doctors,getDoctors,getPatientApp
   const {id} = user || location.state.user;
   
       useEffect(() => {
-        getPatientAppointments(id);    
+        if(appointments.length === 0){
+          getPatientAppointments(id);
+        }
         getDoctors({category:"All"})
       }, []); 
 

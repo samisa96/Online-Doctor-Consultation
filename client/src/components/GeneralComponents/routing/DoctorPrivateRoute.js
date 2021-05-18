@@ -9,6 +9,7 @@ const DoctorPrivateRoute = ({ component: Component, authenticated,user, ...rest 
 
   return (
     <div>
+      { authenticated===false&&<Redirect to="/" />}
     {authenticated && (
     <Route
       {...rest }

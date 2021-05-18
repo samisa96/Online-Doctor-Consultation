@@ -8,7 +8,7 @@ import store from './store';
 
 import HomePage from './components/GeneralComponents/HomePage';
 
-import { loadUser } from './actions/authActions';
+import { loadUser, logout } from './actions/authActions';
 
 // Pages
 import DoctorSearch from './components/PatientComponents/DoctorSearch';
@@ -42,9 +42,22 @@ import TheLayout from './components/AdminComponents/containers/TheLayout';
 import AdminUsers from './components/AdminComponents/AdminUsers';
 import AdminPrivateRoute from './components/GeneralComponents/routing/AdminPrivateRoute';
 //const AdminDashboard = React.lazy(() => import('./components/AdminComponents/AdminDashboard'));
-import spinner from './images/icon/spinner_1.gif'
+import IdleTimer from 'react-idle-timer'
 
+
+  
+
+
+     
+       
 class App extends Component {
+constructor(props) {
+    super(props)
+    this.idleTimer = null
+    this.handleOnAction = this.handleOnAction.bind(this)
+    this.handleOnActive = this.handleOnActive.bind(this)
+    this.handleOnIdle = this.handleOnIdle.bind(this)
+  }
   componentDidMount() {
       store.dispatch(loadUser());  
   }
@@ -53,35 +66,18 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-      <div className="App">
+      <div className="App"> 
+      <IdleTimer
+          ref={ref => { this.idleTimer = ref }}
+          timeout={1000 * 10 * 1}
+          onActive={this.handleOnActive}
+          onIdle={this.handleOnIdle}
+          onAction={this.handleOnAction}
+          debounce={250}
+        />
        <BrowserRouter>
        <Switch>
-          {/* <Route               exact path="/" component={HomePage} />
-          <Route exact path="/forgot" component={LoginForgot} />
-          <PatientPrivateRoute exact path="/hi" component={DoctorSearch} />
-          <PatientPrivateRoute exact path="/doctors" component={DoctorsList} />
-          
-          <PatientPrivateRoute exact path="/doctors/:id/book" component={DoctorBooking} />
-          <PatientPrivateRoute exact path="/confirm-booking" component={BookingForm} />
-          <PatientPrivateRoute exact path="/confirmed" component={BookingConfirm} />
-          <PatientPrivateRoute exact path="/bookings" component={PatientBookings} />
-          <PatientPrivateRoute exact path="/userProfile" component={PatientProfile} />
-          <DoctorPrivateRoute  exact path="/doctorDashboard" component={Dashboard} />
-          <DoctorPrivateRoute  exact path="/doctorAppointments" component={DoctorAppointment} />
-          <DoctorPrivateRoute  exact path="/doctorPatients" component={Patients} />
-          <DoctorPrivateRoute  exact path="/doctorAppointmentsHistory" component={DoctorAppointmentHistory} />
-          <AdminPrivateRoute               exact path="/admin" component={TheLayout} />
-          <AdminPrivateRoute               exact path="/admin/users" component={AdminUsers} />
-          <CombinedRoute  path="/doctors/:id" component={DoctorDetail} />        
-          <Route
-            exact
-            path="/passwordreset/:resetToken"
-            component={ResetPasswordScreen}
-          />
-          <CombinedRoute             path="/:url" component={Video} />  */}
-         
-            {/* <Route path="/reset/:id" component={ResetPassword} /> */}
-            <Route               exact path="/" component={HomePage} />
+          <Route               exact path="/" component={HomePage} />
           <Route exact path="/forgot" component={LoginForgot} />
           <Route exact path="/verifyemail/:verifyToken" component={EmailVerify} />
           <PatientPrivateRoute exact path="/hi" component={DoctorSearch} />
@@ -113,7 +109,20 @@ class App extends Component {
       </Provider>
     );
   }
-  
+  handleOnAction (event) {
+    // console.log('user did something', event)
+  }
+
+  handleOnActive (event) {
+    // console.log('user is active', event)
+    // console.log('time remaining', this.idleTimer.getRemainingTime())
+  }
+
+  handleOnIdle (event) {
+    // console.log('user is idle', event)
+    // console.log('last active', this.idleTimer.getLastActiveTime())
+    store.dispatch(logout())
+  }
 }
 
 export default App;

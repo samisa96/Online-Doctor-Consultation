@@ -8,6 +8,7 @@ const CombinedRoute = ({ component: Component, authenticated, ...rest }) => {
 
   return (
     <div>
+      { authenticated===false&&<Redirect to="/" />}
       {authenticated && (
     <Route
       {...rest }

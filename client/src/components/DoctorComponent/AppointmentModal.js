@@ -80,8 +80,8 @@ const AppointmentModal = (props) => {
    props.updateAppointment(appointment);
    //if(userType==="doctor")
      // props.getDoctorAppointments(id);
-    if(userType==="patient")
-      props.getPatientAppointments(id)
+    // if(userType==="patient")
+    //   props.getPatientAppointments(id)
    toggle();
           }
         }
