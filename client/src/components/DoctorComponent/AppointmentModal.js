@@ -42,6 +42,16 @@ const AppointmentModal = (props) => {
   const {userType} = props.user;
   const {doctor} = props;
 
+  var todayDate = new Date();
+  var dd = String(todayDate.getDate()).padStart(2, '0');
+  var mm = String(todayDate.getMonth() + 1).padStart(2, '0'); //January is 0!
+  var yyyy = todayDate.getFullYear();
+  
+  todayDate = yyyy + '-' + mm + '-' + dd;
+
+
+
+
 
  const onSubmit = (data, e) => {
   const { time, date } = appointment;
@@ -161,7 +171,7 @@ const disabledHours=()=>{
     
   const disabledHours=[]
   const today=new Date();
-  console.log(today.getHours()) 
+  console.log(today) 
   if(today.getDate()===new Date(appointment.date).getDate()){
     for(var i=today.getHours();i>=0;i--){
     disabledHours.push(i)
@@ -244,7 +254,7 @@ return disabledTakenMin;
                                   </Label>
                                   <Input
                                  defaultValue={appointment.date} type="date" 
-                                 min={new Date().toISOString().split('T')[0]}
+                                 min={todayDate}
                                  className="form-control text-uppercase" name="date"
                                  onChange={onChange} 
                                 //  ref={register({ required: true })}

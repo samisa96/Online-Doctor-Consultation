@@ -115,6 +115,7 @@ componentDidMount(){
                  console.log(userNotify);
                 return (
         <CDropdownItem href="#">
+          {userNotify&&
           <div className="message">
             <div className="pt-3 mr-3 float-left">
               <div className="c-avatar">
@@ -139,6 +140,7 @@ componentDidMount(){
             {/* asdfghjkl;'wertyuiop[/////////////////////////////////////////////////////////////////////////////////////////////' */}
            </large>
           </div>
+                }
          </CDropdownItem>
                  )
             }}):
@@ -171,16 +173,18 @@ componentDidMount(){
                 <NavItem>
                   <Logout/>
                 </NavItem>
+                {user &&
                 <Link className="profile-link"
+                
              to={{
-                pathname: `/userProfile`,
+                pathname: `/userProfile/${user.id}`,
                 state: { user: this.props.auth.user },
               }}
             //   className="d-flex justify-content-center"
             >
               VIEW PROFILE
               </Link>
-               
+    }
 
           
               <Link className="bookings-link"

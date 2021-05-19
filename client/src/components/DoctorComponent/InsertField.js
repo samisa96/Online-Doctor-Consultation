@@ -75,7 +75,10 @@ switch(accessor){
          user=users.find((user)=>{
            return user._id===id
          })
-         return user.image
+         if (user){
+          return user.image
+
+         }
        }
       
     }
@@ -127,9 +130,9 @@ switch(accessor){
       )
 
       case 'viewProfile':   
-      const userProfile=users.find(user=>user._id===row["id"])
+      const userProfile=users&& users.find(user=>user._id===row["id"])
       return(
-        <Link to={{pathname:`/userProfile`,state:{ user: userProfile }}} variant="contained" color="primary" 
+        <Link to={{pathname:`/userProfile/${row["id"]}`,state:{ user: userProfile }}} variant="contained" color="primary" 
         style={{ margin: "20px"}}>
           View Profile
           </Link>

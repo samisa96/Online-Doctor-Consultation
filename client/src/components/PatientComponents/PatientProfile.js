@@ -23,8 +23,13 @@ import { getPatientAppointments } from '../../actions/appointmentActions';
 import DocumentsTab from './DocumentsTab';
 
 const PatientProfile = (props) => {
+  const idMatch = String(props.match.params.id)
       if(props.user.userType === 'doctor'){
-        var {user} = props.location.state
+        console.log("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",idMatch);
+        var user = props.users&& (props.users).find(user => user._id === idMatch);
+        //var user = props.user
+
+        console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", user)
       }
       else  {
         var {user} = props;
@@ -47,7 +52,7 @@ const PatientProfile = (props) => {
    
   useEffect(() => {
     console.log(userState.id);
-    props.getPatientAppointments(userState.id);
+    props.getPatientAppointments(idMatch);
  }, [])
  
 
@@ -90,7 +95,6 @@ const onSubmit=(e)=>{
             props.update({...userState,image:props.image});
             toggle();
 }
-console.log(user.image)
   return (
     <div className="PatientProfile">
       <AppNavbar backBtn={props.history.goBack} bg="#266a61" title="Details" />
@@ -203,6 +207,7 @@ console.log(user.image)
 const mapStateToProps = state => ({
   appointments: state.appointment.appointments,
   user: state.auth.user,
+  users: state.auth.users,
   image:state.upload.image,
   error: state.error,
 

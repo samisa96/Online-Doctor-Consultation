@@ -13,8 +13,8 @@ import { format } from 'date-fns'
 import { enGB } from 'date-fns/locale'
 import { DatePickerCalendar } from 'react-nice-dates'
 import 'react-nice-dates/build/style.css'
-
-
+import { connect } from 'react-redux';
+import { getDoctors } from '../../actions/patientActions';
 
 class DoctorBooking extends Component {
   constructor(props) {
@@ -26,6 +26,9 @@ class DoctorBooking extends Component {
         };
   }
 
+  componentDidMount(){
+  this.props.getDoctors({category:"All"})
+}
 
   
   handleDateSelect = date => {
@@ -55,7 +58,10 @@ class DoctorBooking extends Component {
   handleSubmit = () => {
     const { time, selectedDate } = this.state;
     const { location, history } = this.props;
-    const { doctor } = location.state;
+    // const { doctor } = location.state;
+    const id=String(this.props.match.params.id)
+
+    const doctor=		this.props.doctors.find(user=>id===user._id);
     const disabledTakenHours=[]
     var BreakException = {};
 var breakF=true;
@@ -111,7 +117,11 @@ var isTaken=false;
     console.log(this.state.today)
     console.log(this.state.today.getTime()===this.state.selectedDate.getTime())
     const { location } = this.props;
-    const { doctor } = location.state;
+    const id=String(this.props.match.params.id)
+
+    const doctor=		this.props.doctors.find(user=>id===user._id);
+
+   console.log(id);
     console.log(this.generateOptions()) 
     var date=moment(this.state.selectedDate).format('ll');
     const disabledHours=()=>{
@@ -174,46 +184,12 @@ var isTaken=false;
               inputReadOnly
               
             />
-          </div>
-          {/* <InfiniteCalendar
-            theme={{
-              selectionColor: '#47b7a7',
-              textColor: {
-                default: '#333',
-                active: '#FFF',
-              },
-              weekdayColor: '#266a61',
-              headerColor: '#47b7a7',
-              floatingNav: {
-                background: '#266a61',
-                color: '#FFF',
-                chevron: '#FFF',
-              },
-            }}
-            width="100%"
-            height={300}
-            selected={today}
-            minDate={moment().toDate()}
-            onSelect={this.handleDateSelect}
-          /> */}
-{/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <DatePicker
-                autoOk
-                orientation="landscape"
-                variant="static"
-                openTo="date"
-                value={this.selectedDate}
-                onChange={this.handleDateSelect}
-                width="100%"
-            height={300}
-              />
-        </MuiPickersUtilsProvider> */}
-
-
-
+          </div>      
 
       <p>
+        <strong>
         Selected date: {this.state.selectedDate ? format(this.state.selectedDate, 'dd MMM yyyy', { locale: enGB }) : 'none'}.
+        </strong>
       </p>
       <DatePickerCalendar 
       locale={enGB} 
@@ -228,7 +204,7 @@ var isTaken=false;
       height={300}
        />
   
-
+{doctor&&
           <div className="detail">
             <button type="submit" onClick={this.handleSubmit} className="book-btn">
               Book Appointment
@@ -245,12 +221,16 @@ var isTaken=false;
               </p>
             </div>
           </div>
+  }
         </div>
         
       </div>
     );
   }
 }
+const mapStateToProps = state => ({
+  authenticated: state.auth.isAuthenticated,
+  doctors: state.doctor.doctors,
+});
 
-
-export default DoctorBooking;
+export default connect(mapStateToProps,{getDoctors})(DoctorBooking);

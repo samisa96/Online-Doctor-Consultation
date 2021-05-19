@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../../middleware/auth');
 const Appointment = require('../../models/Appointment');
+const User = require('../../models/User');
 
 
 
@@ -18,6 +19,7 @@ router.get('/getAllAppointments', auth , (req,res) => {
 // @description:    get all appointments for specific patient
 //@access           public
 router.get('/getPatientAppointments/:id', auth , (req,res) => {
+    console.log("zib",typeof(req.params.id));
     Appointment.find({'patient.id': req.params.id})
         .sort({ date: -1 })
         .then(appointments => res.json(appointments));
@@ -48,7 +50,10 @@ router.get('/getDoctorPatients/:id', auth , (req,res) => {
             })
         let patientsIds = patients.map(patient => patient.id)
         let filteredPatients = patients.filter(({id}, index) => !patientsIds.includes(id, index + 1)) 
-        console.log(filteredPatients)
+        // console.log(filteredPatients)
+        // var arr=[];
+        // filteredPatients.map(patient => { arr=[...arr, User.find( { '_id': { $gte: patient.id } } )})
+       
         res.json(filteredPatients);
         });
             

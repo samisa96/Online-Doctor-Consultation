@@ -23,11 +23,12 @@ class DoctorDetail extends Component  {
 
   constructor(props) {
     super(props);
-    this.state = ({doctor:this.props.location.state.doctor, tab: 0} ||{doctor:this.props.singleDoc, tab: 0}) ; // In the ||, set default state.
+    this.state = ({doctor:this.props.singleDoc, tab: 0} ||{doctor:this.props.singleDoc, tab: 0}) ; // In the ||, set default state.
     this.props.history.replace(this.props.location.pathname, this.state); // Update state of current entry in history stack.
   }
   componentDidMount(){
-    this.props.getSingleDoctor(this.state.doctor._id);
+    const id=String(this.props.match.params.id)
+    this.props.getSingleDoctor(id);
   }
   
    renderTab = ({ phone, address }) => {

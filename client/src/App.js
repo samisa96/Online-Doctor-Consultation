@@ -71,7 +71,7 @@ constructor(props) {
       <div className="App"> 
       <IdleTimer
           ref={ref => { this.idleTimer = ref }}
-          timeout={1000 * 60 * 10}
+          timeout={1000 * 60 * 3}
           onActive={this.handleOnActive}
           onIdle={this.handleOnIdle}
           onAction={this.handleOnAction}
@@ -89,7 +89,7 @@ constructor(props) {
           <PatientPrivateRoute exact path="/confirm-booking" component={BookingForm} />
           <PatientPrivateRoute exact path="/confirmed" component={BookingConfirm} />
           <PatientPrivateRoute exact path="/bookings" component={PatientBookings} />
-          <CombinedRoute       exact path="/userProfile" component={PatientProfile} />
+          <CombinedRoute       exact path="/userProfile/:id" component={PatientProfile} />
           <DoctorPrivateRoute  exact path="/doctorDashboard" component={Dashboard} />
           <DoctorPrivateRoute  exact path="/doctorAppointments" component={DoctorAppointment} />
           <DoctorPrivateRoute  exact path="/doctorPatients" component={Patients} />

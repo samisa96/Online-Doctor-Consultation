@@ -34,6 +34,7 @@ app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/doctors', require('./routes/api/doctors'));
 app.use('/api/appointments', require('./routes/api/appointments'));
 app.use('/api/uploads', require('./routes/api/uploads'));
+app.use('/userProfile/api/appointments', require('./routes/api/appointments'));
 
 
 
