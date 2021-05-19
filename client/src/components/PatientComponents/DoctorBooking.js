@@ -174,12 +174,46 @@ var isTaken=false;
               inputReadOnly
               
             />
-          </div>      
+          </div>
+          {/* <InfiniteCalendar
+            theme={{
+              selectionColor: '#47b7a7',
+              textColor: {
+                default: '#333',
+                active: '#FFF',
+              },
+              weekdayColor: '#266a61',
+              headerColor: '#47b7a7',
+              floatingNav: {
+                background: '#266a61',
+                color: '#FFF',
+                chevron: '#FFF',
+              },
+            }}
+            width="100%"
+            height={300}
+            selected={today}
+            minDate={moment().toDate()}
+            onSelect={this.handleDateSelect}
+          /> */}
+{/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <DatePicker
+                autoOk
+                orientation="landscape"
+                variant="static"
+                openTo="date"
+                value={this.selectedDate}
+                onChange={this.handleDateSelect}
+                width="100%"
+            height={300}
+              />
+        </MuiPickersUtilsProvider> */}
+
+
+
 
       <p>
-        <strong>
         Selected date: {this.state.selectedDate ? format(this.state.selectedDate, 'dd MMM yyyy', { locale: enGB }) : 'none'}.
-        </strong>
       </p>
       <DatePickerCalendar 
       locale={enGB} 

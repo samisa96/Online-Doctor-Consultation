@@ -39,7 +39,7 @@ const Doctor = ({ doctor ,addRecommendation}) => {
                 <span>{recommendations}</span>
               </p>
             </div>
-           
+           {/* {localStorage.setItem("doctor", JSON.stringify(doctor))} */}
           </div>
           <div>
             <img src={share} alt="share icon" />
@@ -54,6 +54,7 @@ const Doctor = ({ doctor ,addRecommendation}) => {
             state: { doctor },
           }}
           className="btn btn-full flex-grow-1 flex-md-grow-0"
+          // onClick={()=>localStorage.setItem("doctor", JSON.stringify(doctor))}
         >
           Book
         </Link>

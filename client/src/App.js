@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css';
 import './styles/main.scss';
+import { confirmAlert } from 'react-confirm-alert'; 
+import 'react-confirm-alert/src/react-confirm-alert.css'; 
 
 import {Provider} from 'react-redux';
 import store from './store';
@@ -69,7 +71,7 @@ constructor(props) {
       <div className="App"> 
       <IdleTimer
           ref={ref => { this.idleTimer = ref }}
-          timeout={1000 * 10 * 1}
+          timeout={1000 * 60 * 10}
           onActive={this.handleOnActive}
           onIdle={this.handleOnIdle}
           onAction={this.handleOnAction}
@@ -87,7 +89,7 @@ constructor(props) {
           <PatientPrivateRoute exact path="/confirm-booking" component={BookingForm} />
           <PatientPrivateRoute exact path="/confirmed" component={BookingConfirm} />
           <PatientPrivateRoute exact path="/bookings" component={PatientBookings} />
-          <CombinedRoute exact path="/userProfile" component={PatientProfile} />
+          <CombinedRoute       exact path="/userProfile" component={PatientProfile} />
           <DoctorPrivateRoute  exact path="/doctorDashboard" component={Dashboard} />
           <DoctorPrivateRoute  exact path="/doctorAppointments" component={DoctorAppointment} />
           <DoctorPrivateRoute  exact path="/doctorPatients" component={Patients} />
@@ -121,6 +123,7 @@ constructor(props) {
   handleOnIdle (event) {
     // console.log('user is idle', event)
     // console.log('last active', this.idleTimer.getLastActiveTime())
+    
     store.dispatch(logout())
   }
 }

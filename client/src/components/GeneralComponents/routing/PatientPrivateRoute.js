@@ -3,7 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-const PatientPrivateRoute = ({ component: Component, authenticated,user, ...rest }) => {
+const PatientPrivateRoute = ({ component: Component, location,history, authenticated,user, ...rest }) => {
   console.log("patientroute")
   return (
     <div>
@@ -13,7 +13,7 @@ const PatientPrivateRoute = ({ component: Component, authenticated,user, ...rest
       {...rest }
       render= { props =>
         (authenticated&&user.userType==="patient" ) ? (
-          <Component {...props} />
+          <Component location={location} history={history} {...props} />
         ) : (
           <Redirect to="/" />
         )
