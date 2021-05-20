@@ -477,7 +477,6 @@ class Video extends Component {
 	  console.log("report",this.state.report)
 	  console.log("id",appointment._id)
 	  this.props.makeReport(appointment._id,this.state.report)
-	  alert("update success")
 	  window.location.href = "/";
 	  return true;
 }
