@@ -44,7 +44,7 @@ return(
 
  <div className="DoctorDetail-feedback container">
 
-    {props&&props.documents.reverse().map((document)=>{if(document&&document.document&&document.fileName){
+    {props&&(props.documents[0])?(props.documents.reverse().map((document)=>{if(document&&document.document&&document.fileName){
     const doctor=props.users.find(user=>user._id===document.docId)
     return(doctor&&
         <div className="Doctor">
@@ -81,7 +81,11 @@ return(
       }
     }
         
-        )
+        ))
+        :
+        <div>
+        <h6 className="Feedback-title">No Documents Yet</h6>
+        </div>
     }
     
     {/* <div className="content">

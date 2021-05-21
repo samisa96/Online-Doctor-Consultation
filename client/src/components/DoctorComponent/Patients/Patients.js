@@ -15,7 +15,7 @@ import appointment from '../../../reducers/appointmentReducer';
 
 
 
-const Patients = ({history,patients,columns,user, users, getDoctorPatients}) => {
+const Patients = ({history,patients,columns,user,users,getDoctorPatients}) => {
     // const [patients, setPatients] = useState([]);
   
     const {id} = user;
@@ -32,8 +32,12 @@ const Patients = ({history,patients,columns,user, users, getDoctorPatients}) => 
             if(a.name.toLowerCase() > b.name.toLowerCase()) { return 1; }
             return 0;
         })
-   // sortedArr= sortedArr.filter(patient => patient.id === (users.find(user => user._id === patient.id)._id) )
-
+    sortedArr=sortedArr.filter(patient=>{
+        const {id}=patient
+        const user= users&& users.find(user=>user._id===id)
+        if(user)
+        return id===user._id
+    })
     const tableCallbacks = {  email: getEmailLogo }
     return (
         <div className="container-fluid bg-light">
@@ -64,7 +68,8 @@ const Patients = ({history,patients,columns,user, users, getDoctorPatients}) => 
 const mapStateToProps = state => ({
     patients: state.doctor.patients,
     user: state.auth.user,
-    users: state.auth.users,
+        users: state.auth.users,
+
     columns: state.table.patientsTable.columns,
     imageModal: state.imageModal,
   });

@@ -262,8 +262,8 @@ class Video extends Component {
 			width = "50%"
 			height = "50%"
 		} else if (elms === 2) {
-			width = "10%"
-			height = "10%"
+			width = "100%"
+			height = "40%"
 		} else if (elms === 3 || elms === 4) {
 			width = "35%"
 			height = "50%"
@@ -502,18 +502,21 @@ componentDidUpdate(){
 		const documents=()=>{
 			if(this.userType==="doctor"){
 				const id=String(window.location.pathname).slice(1)
-			var appiontment=this.props.appointments.find(appointment=>id===appointment._id);
-			console.log(appiontment.patient.documents); 
-			return appiontment.patient.documents
+			if (this.props.appointments && this.props.users){
+			var appointment=this.props.appointments.find(appointment=>id===appointment._id);
+			var patient= appointment&& this.props.users.find(user=>appointment.patient.id===user._id);
+			return patient&& patient.documents
+			}
 			}
 			
 		}
 		const patientId=()=>{
 			if(this.userType==="doctor"){
 				const id=String(window.location.pathname).slice(1)
-			var appiontment=this.props.appointments.find(appointment=>id===appointment._id);
-			console.log(appiontment.patient._id); 
-			return appiontment.patient.id
+			if (this.props.appointments){
+				var appointment=this.props.appointments.find(appointment=>id===appointment._id);
+				return appointment && appointment.patient.id
+			}
 			}
 			
 		}
@@ -563,36 +566,11 @@ componentDidUpdate(){
 					</div>
 					:
 					<div>
-						<div className="btn-down" style={{ backgroundColor: "whitesmoke", color: "whitesmoke", textAlign: "center" }}>
-							<IconButton style={{ color: "#424242" }} onClick={this.handleVideo}>
-								{(this.state.video === true) ? <VideocamIcon /> : <VideocamOffIcon />}
-							</IconButton>
-
-							<IconButton style={{ color: "#f44336" }} onClick={this.handleEndCall}>
-
-								<CallEndIcon />
-							</IconButton>
-
-							<IconButton style={{ color: "#424242" }} onClick={this.handleAudio}>
-								{this.state.audio === true ? <MicIcon /> : <MicOffIcon />}
-							</IconButton>
-
-							{this.state.screenAvailable === true ?
-								<IconButton style={{ color: "#424242" }} onClick={this.handleScreen}>
-									{this.state.screen === true ? <ScreenShareIcon /> : <StopScreenShareIcon />}
-								</IconButton>
-								: null}
-
-							<Badge badgeContent={this.state.newmessages} max={999} color="secondary" onClick={this.openChat}>
-								<IconButton style={{ color: "#424242" }} onClick={this.openChat}>
-									<ChatIcon />
-								</IconButton>
-							</Badge>
-						</div>
+						
 
 						<Modal show={this.state.showModalPres} onHide={this.closeChat} style={{ zIndex: "999999" }}>
 							<Modal.Header closeButton>
-								<Modal.Title>enter Report</Modal.Title>
+								<Modal.Title>Enter Report</Modal.Title>
 							</Modal.Header>
 							<Modal.Body style={{ overflow: "auto", overflowY: "auto", height: "400px", textAlign: "left" }} >
 							<textarea class="form-control" onChange={e => this.handleReport(e)} value={this.state.report} id="message-text"></textarea>	
@@ -633,11 +611,38 @@ componentDidUpdate(){
 								}} onClick={()=>this.setState({reportsModal:!this.state.reportsModal})}>view patient reports</Button></>}
 								</div>
 
-							<Row id="main" className="flex-container" style={{ margin: 0, padding: 0 }}>
+							<Row id="main" className="flex-container" style={{ justifyContent: "center", textAlign: "center", margin: 0, padding: 0 }}>
 								<video id="my-video" ref={this.localVideoref} autoPlay muted style={{
 									borderStyle: "solid",borderColor: "#bdbdbd",margin: "10px",objectFit: "fill",
 									width: "100%",height: "100%"}}></video>
 							</Row>
+
+							<div className="btn-down" style={{ backgroundColor: "whitesmoke", color: "whitesmoke", textAlign: "center" }}>
+							<IconButton style={{ color: "#424242" }} onClick={this.handleVideo}>
+								{(this.state.video === true) ? <VideocamIcon /> : <VideocamOffIcon />}
+							</IconButton>
+
+							<IconButton style={{ color: "#f44336" }} onClick={this.handleEndCall}>
+
+								<CallEndIcon />
+							</IconButton>
+
+							<IconButton style={{ color: "#424242" }} onClick={this.handleAudio}>
+								{this.state.audio === true ? <MicIcon /> : <MicOffIcon />}
+							</IconButton>
+
+							{this.state.screenAvailable === true ?
+								<IconButton style={{ color: "#424242" }} onClick={this.handleScreen}>
+									{this.state.screen === true ? <ScreenShareIcon /> : <StopScreenShareIcon />}
+								</IconButton>
+								: null}
+
+							<Badge badgeContent={this.state.newmessages} max={999} color="secondary" onClick={this.openChat}>
+								<IconButton style={{ color: "#424242" }} onClick={this.openChat}>
+									<ChatIcon />
+								</IconButton>
+							</Badge>
+						</div>
 						</div>
 						{reportsModalEl}
 						{documentsModalEl}
